@@ -1,31 +1,21 @@
-let bandNames = ["The Beatles", "Rolling Stones", "Led Zeppelin", "Pink Floyd", "The Who", "The Doors"];
+let bandNames = ['The Beatles', 'Led Zeppelin', 'Radiohead', 'Pink Floyd', 'The Who'];
 
-// Function to remove articles from band names
-function removeArticle(bandName) {
-  // List of articles to remove
-  let articles = ["a", "an", "the"];
-  // Split band name into words
-  let words = bandName.split(" ");
-  // Check if first word is an article
-  if (articles.includes(words[0].toLowerCase())) {
-    // Remove the article
-    words.shift();
-  }
-  // Join the remaining words and return the modified band name
-  return words.join(" ");
-}
-
-// Sort the band names in lexicographic order excluding articles
-bandNames.sort(function(a, b) {
-  return removeArticle(a).localeCompare(removeArticle(b));
-});
-
-// Get the ul element with id 'band'
-let ulElement = document.getElementById("band");
-
-// Loop through the sorted band names and add them as li elements to the ul element
+// Remove articles from band names
 for (let i = 0; i < bandNames.length; i++) {
-  let liElement = document.createElement("li");
-  liElement.textContent = bandNames[i];
-  ulElement.appendChild(liElement);
+  bandNames[i] = bandNames[i].replace(/^(the|an|a)\s+/i, '');
 }
+
+// Sort the band names in lexicographic order
+bandNames.sort();
+
+// Create an unordered list and add each band name as a list item
+const ul = document.createElement('ul');
+ul.setAttribute('id', 'band');
+for (let i = 0; i < bandNames.length; i++) {
+  const li = document.createElement('li');
+  li.textContent = bandNames[i];
+  ul.appendChild(li);
+}
+
+// Add the unordered list to the document body
+document.body.appendChild(ul);
